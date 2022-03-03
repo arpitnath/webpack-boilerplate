@@ -1,11 +1,33 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 
-const Counter = () => {
+const Counter: FC = () => {
   const [count, setCount] = useState(0);
+  const [hexcode, set] = useState("#fff");
+
+  const getRandomColor = (): void => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    set(color);
+  };
+
+  const handleOnClick = (): void => {
+    setCount((c) => c + 1);
+    getRandomColor();
+  };
+
+  const styles = {
+    backgroundColor: hexcode,
+    borderRadius: "4px",
+  };
+
   return (
     <div>
-      <h3>Update the count and edit src/App.tsx, state is preserved</h3>
-      <button onClick={() => setCount((c) => c + 1)}>Count - {count}</button>
+      <button style={styles} onClick={handleOnClick}>
+        Count → {count}
+      </button>
     </div>
   );
 };
